@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+@font-face {
+    font-family: 'E1';
+    src: url('fonts/MYRIADPRO-BOLD.OTF') format('opentype');
+}
+@font-face {
+    font-family: 'E2';
+    src: url('fonts/FredokaOne-Regular.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'E3';
+    src: url('fonts/ArialRoundedBold.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'E4';
+    src: url('fonts/Auglie.otf') format('opentype');
+}
+@font-face {
+    font-family: 'E5';
+    src: url('fonts/Marker-Felt-Wide.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'E6';
+    src: url('fonts/CHALKBOARDSB.TTF') format('truetype');
+}
+@font-face {
+    font-family: 'E7';
+    src: url('fonts/WendyOne-Regular.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'E8';
+    src: url('fonts/BerkshireSwash-Regular.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'E9';
+    src: url('fonts/SecularOne-Regular.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'E10';
+    src: url('fonts/UniSansBoldItalic.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'E11';
+    src: url('fonts/Brandon_reg.otf') format('opentype');
+}
+@font-face {
+    font-family: 'E12';
+    src: url('fonts/Athelas-Regular.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Klop';
+    src: url('fonts/Klop.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+/* */
+@font-face {
+    font-family: 'C1';
+    src: url('fonts/Apple LiGothic.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'C2';
+    src: url('fonts/Hannotate%20SC%20Bold.otf') format('opentype');
+}
+@font-face {
+    font-family: 'C3';
+    src: url('fonts/Yuanti SC Regular.ttf') format('truetype'); /* Changed .ttc to .ttf for better support */
+}
+@font-face {
+    font-family: 'C4';
+    src: url('fonts/wawati-tc-regular.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'C5';
+    src: url('fonts/FZLiBian-S02S.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'C6';
+    src: url('fonts/Baoli.ttc') format('truetype');
+}
+/* */	
+	
+/* Add logo area styles */
+.logo-area {
+    width: 100%;
+    max-width: 320px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    color: #999;
+    font-size: 14px;
+}
+.logo-area img {
+    width: 100%;
+}
+.listing {
+    font-size: 18px;
+    margin-bottom: 21px;
+}
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;  /* Increased body padding */
+    font-family: Arial, sans-serif;
+    max-width: 480px;
+    margin: 0 auto;
+}
+.container-width {
+    width: 100%;
+    max-width: 320px;
+}
+.placeholder {
+    width: 189px;
+    height: 38px;
+    margin: 15px auto;  /* Increased margin */
+    border-radius: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: black !important;
+    text-align: center;
+    padding: 25px 40px;
+    overflow: hidden;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+}
+#colorSelect, #fontSelect, #textInput {
+    margin-bottom: 25px;  /* Increased margin */
+    padding: 15px;  /* Increased padding */
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    width: 100%;
+    max-width: 320px;
+    font-size: 16px;
+}
+.input-group {
+    margin-bottom: 25px;  /* Increased margin */
+    text-align: left;
+    width: 100%;
+    max-width: 320px;
+}
+.input-label {
+    display: block;
+    margin-bottom: 10px;  /* Increased margin */
+    font-size: 14px;
+    padding-left: 3px;  /* Added padding */
+}
+.preview-group {
+    text-align: left;
+    width: 100%;
+    max-width: 320px;
+    margin-bottom: 25px;  /* Increased margin */
+    padding: 20px 0;  /* Added vertical padding */
+}
+.preview-label {
+    display: block;
+    margin-bottom: 20px;  /* Increased margin */
+    font-size: 14px;
+    font-weight: bold;
+    padding-left: 3px;  /* Added padding */
+}
+#infoDisplay {
+    width: 100%;
+    max-width: 320px;
+    padding: 15px;  /* Increased padding */
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #f5f5f5;
+    resize: none;
+    height: auto;
+    margin-top: 15px;  /* Increased margin */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 16px;
+}
+#infoDisplay:hover {
+    background-color: #e8e8e8;
+}
+.copy-notification {
+    position: fixed;
+    top: 30px;  /* Increased position from top */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 12px 25px;  /* Increased padding */
+    border-radius: 5px;
+    font-size: 14px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    z-index: 1000;
+}
+.copy-notification.show {
+    opacity: 1;
+}
+
+@media screen and (max-width: 320px) {
+.placeholder {
+    width: 160px;
+    height: 32px;
+}
+body {
+    padding: 20px;  /* Slightly reduced padding for very small screens */
+}
+}
+
+@media (min-width: 481px) {
+body {
+    padding: 40px;  /* Increased padding for larger screens */
+}
+.input-group, .preview-group, #colorSelect, #fontSelect, #textInput, #infoDisplay {
+    max-width: 400px;
+}
+}
+</style>
+</head>
+<!-- Rest of the HTML and JavaScript remains exactly the same -->
+<body>
+<!-- Add logo placeholder at the top -->
+<div class="logo-area">
+  <figure><img src="images/logo.png" width="auto" height="auto" alt="StickySituation logo"/></figure>
+</div>
+<h2 class="listing">Mini - Monotone (<a href="mini-tritone.html">Tritone</a>, <a href="mini-rainbow.html">Rainbow</a>, <a href="mini-black-white.html">B&amp;W</a>)</h2>
+<div class="copy-notification" id="copyNotification">Copied!</div>
+<div class="input-group">
+  <label for="textInput" class="input-label">1. Insert name/text</label>
+  <input type="text" class="container-width" id="textInput" placeholder="Enter text here..." value="" maxlength="20">
+</div>
+<div class="input-group">
+  <label for="colorSelect" class="input-label">2. Select design</label>
+  <select id="colorSelect" class="container-width">
+    <option value="apricot">Apricot</option>
+    <option value="bubblegum">Bubblegum</option>
+    <option value="honeydew">Honeydew</option>
+    <option value="lavender">Lavender</option>
+    <option value="mint">Mint</option>
+    <option value="platinum">Platinum</option>
+    <option value="plum">Plum</option>
+    <option value="sky">Sky</option>
+    <option value="strawberry">Strawberry</option>
+    <option value="tomato">Tomato</option>
+    <option value="vanilla">Vanilla</option>
+    <option value="violet">Violet</option>
+  </select>
+</div>
+<div class="input-group">
+  <label for="fontSelect" class="input-label">3. Choose font</label>
+  <select id="fontSelect" class="container-width">
+    <option value="'E1', sans-serif">E1</option>
+    <option value="'E2', sans-serif">E2</option>
+    <option value="'E3', sans-serif">E3</option>
+    <option value="'E4', sans-serif">E4</option>
+    <option value="'E5', sans-serif">E5</option>
+    <option value="'E6', sans-serif">E6</option>
+    <option value="'E7', sans-serif">E7</option>
+    <option value="'E8', sans-serif">E8</option>
+    <option value="'E9', sans-serif">E9</option>
+    <option value="'E10', sans-serif">E10</option>
+    <option value="'E11', sans-serif">E11</option>
+    <option value="'E12', sans-serif">E12</option>
+    <option value="'C1', sans-serif">C1</option>
+    <option value="'C2', sans-serif">C2</option>
+    <option value="'C3', sans-serif">C3</option>
+    <option value="'C4', sans-serif">C4</option>
+    <option value="'C5', sans-serif">C5</option>
+    <option value="'C6', sans-serif">C6</option>
+  </select>
+</div>
+<div class="preview-group">
+  <label class="preview-label">Preview:</label>
+  <div id="placeholder1" class="placeholder"></div>
+  <div id="placeholder2" class="placeholder"></div>
+  <div id="placeholder3" class="placeholder"></div>
+</div>
+<div class="input-group">
+  <label for="textInput" class="input-label">Info for StickySituation:</label>
+  <input type="text" id="infoDisplay" readonly title="Click to copy">
+</div>
+<script>
+        // JavaScript remains exactly the same
+        const textInput = document.getElementById('textInput');
+        const colorSelect = document.getElementById('colorSelect');
+        const fontSelect = document.getElementById('fontSelect');
+        const placeholders = document.querySelectorAll('.placeholder');
+        const infoDisplay = document.getElementById('infoDisplay');
+        const copyNotification = document.getElementById('copyNotification');
+
+       const colorSets = {
+    apricot: ['#f1c7b4', '#f1c7b4', '#f1c7b4'],
+    bubblegum: ['#ecbcca', '#ecbcca', '#ecbcca'],
+    honeydew: ['#d6e9de', '#d6e9de', '#d6e9de'],
+    lavender: ['#eed8e6', '#eed8e6', '#eed8e6'],
+    mint: ['#80bf9d', '#80bf9d', '#80bf9d'],
+    platinum: ['#e5e6e3', '#e5e6e3', '#e5e6e3'],
+    plum: ['#b977a9', '#b977a9', '#b977a9'],
+    sky: ['#8ccce8', '#8ccce8', '#8ccce8'],
+    strawberry: ['#d95163', '#d95163', '#d95163'],
+    tomato: ['#e07a67', '#e07a67', '#e07a67'],
+    vanilla: ['#e5eaae', '#e5eaae', '#e5eaae'],
+    violet: ['#8c8dbf', '#8c8dbf', '#8c8dbf']
+};
+
+
+const colorSetNames = {
+    apricot: 'Apricot',
+    bubblegum: 'Bubblegum',
+    honeydew: 'Honeydew',
+    lavender: 'Lavender',
+    mint: 'Mint',
+    platinum: 'Platinum',
+    plum: 'Plum',
+    sky: 'Sky',
+    strawberry: 'Strawberry',
+    tomato: 'Tomato',
+    vanilla: 'Vanilla',
+    violet: 'Violet'
+};
+
+
+        const fontNames = {
+            "'E1', sans-serif": 'E1',
+            "'E2', sans-serif": 'E2',
+            "'E3', sans-serif": 'E3',
+            "'E4', sans-serif": 'E4',
+            "'E5', sans-serif": 'E5',
+            "'E6', sans-serif": 'E6',
+            "'E7', sans-serif": 'E7',
+            "'E8', sans-serif": 'E8',
+            "'E9', sans-serif": 'E9',
+            "'E10', sans-serif": 'E10',
+            "'E11', sans-serif": 'E11',
+            "'E12', sans-serif": 'E12',
+			"'C1', sans-serif": 'C1',
+            "'C2', sans-serif": 'C2',
+            "'C3', sans-serif": 'C3',
+            "'C4', sans-serif": 'C4',
+            "'C5', sans-serif": 'C5',
+            "'C6', sans-serif": 'C6'
+        };
+
+        function showNotification() {
+            copyNotification.classList.add('show');
+            setTimeout(() => {
+                copyNotification.classList.remove('show');
+            }, 1500);
+        }
+
+        infoDisplay.addEventListener('click', async () => {
+            try {
+                await navigator.clipboard.writeText(infoDisplay.value);
+                showNotification();
+            } catch (err) {
+                console.error('Failed to copy text: ', err);
+            }
+        });
+
+        function updateInfoDisplay() {
+            const selectedColorSet = colorSetNames[colorSelect.value];
+            const selectedFont = fontNames[fontSelect.value];
+            const userText = textInput.value;
+            infoDisplay.value = `${selectedColorSet}, ${userText || ''} (${selectedFont})`;
+        }
+
+        function updateColors() {
+            const selectedSet = colorSets[colorSelect.value];
+            placeholders.forEach((placeholder, index) => {
+                placeholder.style.backgroundColor = selectedSet[index];
+            });
+            updateInfoDisplay();
+        }
+
+        function updateFont() {
+            const selectedFont = fontSelect.value;
+            placeholders.forEach(placeholder => {
+                placeholder.style.fontFamily = selectedFont;
+            });
+            resizeText();
+            updateInfoDisplay();
+        }
+
+        function resizeText() {
+            const text = textInput.value;
+            const containerWidth = placeholders[0].offsetWidth - 20;
+            
+            placeholders.forEach(placeholder => {
+                placeholder.textContent = text;
+                
+                const span = document.createElement('span');
+                span.style.visibility = 'hidden';
+                span.style.fontFamily = placeholder.style.fontFamily || 'Times New Roman';
+                span.style.fontSize = '24px';
+                span.textContent = text;
+                document.body.appendChild(span);
+                
+                const textWidth = span.offsetWidth;
+                const scaleFactor = Math.min(1, containerWidth / textWidth);
+                
+                const fontSize = Math.max(10, Math.floor(24 * scaleFactor));
+                placeholder.style.fontSize = `${fontSize}px`;
+                
+                document.body.removeChild(span);
+            });
+            updateInfoDisplay();
+        }
+
+        colorSelect.addEventListener('change', updateColors);
+        fontSelect.addEventListener('change', updateFont);
+        textInput.addEventListener('input', resizeText);
+
+        // Initialize
+        updateColors();
+        updateFont();
+        updateInfoDisplay();
+    </script>
+</body>
+</html>
